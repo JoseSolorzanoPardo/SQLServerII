@@ -28,7 +28,7 @@ WHERE pais IN (
 SELECT pais
 FROM TransaccionesFraude
 GROUP BY pais
-HAVING COUNT(\*) > 2
+HAVING COUNT(*) > 2
 );
 ```
 **3\. Subconsulta en FROM (como tabla derivada)**
