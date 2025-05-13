@@ -297,7 +297,7 @@ _Contexto pedagógico:_ se asegura integridad en el ingreso de datos válidos.
 **Ejemplo para verificar restricción:**
 ```
 INSERT INTO Usuarios (id_usuario, nombre_completo, correo, fecha_registro, nivel_ingresos, segmento_cliente)
-VALUES (21, 'Luis Barreto', '<luis.barreto@email.com>', '2024-05-11', 'Muy Alto', 'Premium');
+VALUES (21, 'Luis Barreto', 'luis.barreto@email.com', '2024-05-11', 'Muy Alto', 'Premium');
 ```
 **Consulta para ver las restricciones de un campo:**
 ```
@@ -348,15 +348,15 @@ _Contexto pedagógico:_ ejemplo típico de normalización y relaciones entre tab
 Pasamos agregar los registros correspondientes en la tabla:
 ```
 INSERT INTO Usuarios (id_usuario, nombre_completo, correo, fecha_registro, nivel_ingresos, segmento_cliente, id_ciudad) VALUES
-(22, 'Sebastián Quintero', '<sebastian.quintero@email.com>', '2024-04-16', 'Medio', 'Frecuente', 2),
-(23, 'Valeria Meza', '<valeria.meza@email.com>', '2024-04-17', 'Bajo', 'Ocasional', 3),
-(24, 'Mauricio Díaz', '<mauricio.diaz@email.com>', '2024-04-18', 'Medio', 'Frecuente', 4),
-(25, 'Alejandra Patiño', '<alejandra.patino@email.com>', '2024-04-19', 'Alto', 'Premium', 5),
-(26, 'Cristian Rojas', '<cristian.rojas@email.com>', '2024-04-20', 'Bajo', 'Ocasional', 6),
-(27, 'Mónica Benítez', '<monica.benitez@email.com>', '2024-04-21', 'Medio', 'Frecuente', 7),
-(28, 'Daniel Ortega', '<daniel.ortega@email.com>', '2024-04-22', 'Alto', 'Premium', 8),
-(29, 'Natalia Ramírez', '<natalia.ramirez@email.com>', '2024-04-23', 'Medio', 'Frecuente', 9),
-(30, 'Jhonatan Silva', '<jhonatan.silva@email.com>', '2024-04-24', 'Bajo', 'Ocasional', 10);
+(22, 'Sebastián Quintero', 'sebastian.quintero@email.com', '2024-04-16', 'Medio', 'Frecuente', 2),
+(23, 'Valeria Meza', 'valeria.meza@email.com', '2024-04-17', 'Bajo', 'Ocasional', 3),
+(24, 'Mauricio Díaz', 'mauricio.diaz@email.com', '2024-04-18', 'Medio', 'Frecuente', 4),
+(25, 'Alejandra Patiño', 'alejandra.patino@email.com', '2024-04-19', 'Alto', 'Premium', 5),
+(26, 'Cristian Rojas', 'cristian.rojas@email.com', '2024-04-20', 'Bajo', 'Ocasional', 6),
+(27, 'Mónica Benítez', 'monica.benitez@email.com', '2024-04-21', 'Medio', 'Frecuente', 7),
+(28, 'Daniel Ortega', 'daniel.ortega@email.com', '2024-04-22', 'Alto', 'Premium', 8),
+(29, 'Natalia Ramírez', 'natalia.ramirez@email.com', '2024-04-23', 'Medio', 'Frecuente', 9),
+(30, 'Jhonatan Silva', 'jhonatan.silva@email.com', '2024-04-24', 'Bajo', 'Ocasional', 10);
 ```
 
 **5\. Eliminar una columna: segmento_cliente**
