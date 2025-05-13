@@ -366,3 +366,39 @@ DROP COLUMN segmento_cliente;
 ```
 
 _Contexto pedagógico:_ simula una decisión de negocio donde ese campo ya no se usa.
+
+
+
+## Cruzando Tablas
+
+**1\. INNER JOIN**
+
+Solo muestra usuarios que **sí tienen ciudad asociada**
+```
+SELECT u.id_usuario, u.nombre_completo, c.nombre_ciudad
+FROM Usuarios u
+INNER JOIN Ciudades c ON u.id_ciudad = c.id_ciudad;
+```
+
+📘 _Ideal para mostrar relaciones válidas entre entidades._
+
+**2\. LEFT JOIN (LEFT OUTER JOIN)**
+
+Muestra **todos los usuarios**, incluso si no tienen ciudad asignada.
+```
+SELECT u.id_usuario, u.nombre_completo, c.nombre_ciudad
+FROM Usuarios u
+LEFT JOIN Ciudades c ON u.id_ciudad = c.id_ciudad;
+```
+📘 _Útil para detectar usuarios sin ciudad (nombre_ciudad será NULL)._
+
+**3\. RIGHT JOIN (RIGHT OUTER JOIN)**
+
+Muestra **todas las ciudades**, incluso si no tienen usuarios asignados.
+```
+SELECT u.nombre_completo, c.nombre_ciudad
+FROM Usuarios u
+RIGHT JOIN Ciudades c ON u.id_ciudad = c.id_ciudad;
+```
+
+📘 _Muestra ciudades sin usuarios como NULL en las columnas de Usuarios._
