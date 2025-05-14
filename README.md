@@ -369,6 +369,7 @@ _Contexto pedagógico:_ simula una decisión de negocio donde ese campo ya no se
 
 
 
+
 ## Cruzando Tablas
 
 **1\. INNER JOIN**
@@ -379,8 +380,73 @@ SELECT u.id_usuario, u.nombre_completo, c.nombre_ciudad
 FROM Usuarios u
 INNER JOIN Ciudades c ON u.id_ciudad = c.id_ciudad;
 ```
-
 📘 _Ideal para mostrar relaciones válidas entre entidades._
+
+**1a\. OTRO EJEMEPLO CON INNER JOIN**
+```
+-- Tabla Autores (uno)
+CREATE TABLE Autores (
+id_autor INT PRIMARY KEY,
+nombre_autor VARCHAR(100) NOT NULL
+);
+```
+
+```
+-- Tabla Libros (muchos)
+CREATE TABLE Libros (
+id_libro INT PRIMARY KEY,
+titulo VARCHAR(150) NOT NULL,
+id_autor INT,
+FOREIGN KEY (id_autor) REFERENCES Autores(id_autor)
+);
+```
+
+```
+-- Insertar autores (incluye uno sin libros)
+INSERT INTO Autores (id_autor, nombre_autor) VALUES
+(1, 'Gabriel García Márquez'),
+(2, 'Isabel Allende'),
+(3, 'Mario Vargas Llosa'),
+(4, 'Laura Restrepo'), -- Este autor no tendrá libros
+(5, 'Julio Cortázar'),
+(6, 'Jorge Luis Borges'),
+(7, 'Elena Poniatowska'),
+(8, 'Carlos Fuentes'), -- Este autor no tendrá libros
+(9, 'Eduardo Galeano'),
+(10, 'Juan Rulfo');
+```
+
+```
+-- Insertar libros (solo para algunos autores)
+INSERT INTO Libros (id_libro, titulo, id_autor) VALUES
+(101, 'Cien Años de Soledad', 1),
+(102, 'El Amor en los Tiempos del Cólera', 1),
+(201, 'La Casa de los Espíritus', 2),
+(202, 'Paula', 2),
+(301, 'La Fiesta del Chivo', 3),
+(302, 'Rayuela', 5),
+(303, 'Final del Juego', 5),
+(401, 'Ficciones', 6),
+(402, 'El Aleph', 6),
+(501, 'La Noche de Tlatelolco', 7),
+(601, 'Las Venas Abiertas de América Latina', 9),
+(701, 'Pedro Páramo', 10),
+(702, 'El Llano en llamas', 10);
+```
+
+```
+SELECT
+A.id_autor,
+A.nombre_autor,
+L.id_libro,
+L.titulo
+FROM
+Autores A
+INNER JOIN
+Libros L ON A.id_autor = L.id_autor;
+```
+
+
 
 **2\. LEFT JOIN (LEFT OUTER JOIN)**
 
