@@ -468,3 +468,173 @@ RIGHT JOIN Ciudades c ON u.id_ciudad = c.id_ciudad;
 ```
 
 📘 _Muestra ciudades sin usuarios como NULL en las columnas de Usuarios._
+
+
+
+
+
+## ¿Qué son los bloques transaccionales?
+
+Los bloques transaccionales en SQL Server (y otros motores de bases de datos) son estructuras que te permiten agrupar un conjunto de sentencias SQL de manera que se ejecuten como una sola unidad de trabajo. Es decir, o todas se ejecutan correctamente, o ninguna se aplica si ocurre un error.
+
+**¿Para qué se usan?**
+
+Para garantizar la **integridad de los datos** en operaciones críticas como:
+
+- Transferencias bancarias.
+- Inserciones múltiples relacionadas.
+- Actualizaciones que no deben quedar a medias.
+
+```
+-- Iniciar transacción
+
+BEGIN TRANSACTION;
+
+-- Insertar un nuevo autor
+
+INSERT INTO Autores (id_autor, nombre_autor)
+VALUES (12, 'William Ospina');
+
+-- Insertar libro relacionado
+
+INSERT INTO Libros (id_libro, titulo, id_autor)
+VALUES (901, 'El País de la Canela', 12);
+
+-- Confirmar cambios
+
+COMMIT;
+```
+
+```
+BEGIN TRY
+
+BEGIN TRANSACTION;
+
+-- Insertar libro con autor inexistente (provocará error)
+
+INSERT INTO Libros (id_libro, titulo, id_autor)
+VALUES (802, 'Libro Fantasma', 1);
+
+COMMIT;
+
+PRINT 'Transacción completada.';
+
+END TRY
+
+BEGIN CATCH
+
+ROLLBACK;
+
+PRINT 'Error en la transacción: ' + ERROR_MESSAGE();
+
+END CATCH;
+```
+
+**COMMIT**
+
+Confirma los cambios realizados durante la transacción y los guarda en la base de datos de forma permanente.
+
+**ROLLBACK**
+
+Revierte todos los cambios realizados desde el BEGIN TRANSACTION.
+
+**Función LEFT(cadena, número)**
+
+Extrae los primeros **n** caracteres desde la izquierda.
+```
+-- Extraer los primeros 4 caracteres del nombre del autor
+SELECT nombre_autor, LEFT(nombre_autor, 4) AS inicio_nombre
+FROM Autores;
+```
+ Por ejemplo:  
+'Gabriel García Márquez' → 'Gabr'
+
+**Función RIGHT(cadena, número)**
+
+Extrae los últimos **n** caracteres desde la derecha.
+```
+-- Extraer los últimos 5 caracteres del nombre del autor
+SELECT nombre_autor, RIGHT(nombre_autor, 5) AS fin_nombre
+FROM Autores;
+```
+ Por ejemplo:  
+'Isabel Allende' → 'lende'
+
+**Ejemplo combinado**
+```
+-- Obtener inicial y final del nombre del autor
+SELECT
+nombre_autor,
+LEFT(nombre_autor, 1) AS inicial,
+RIGHT(nombre_autor, 3) AS termina_con
+FROM Autores;
+```
+
+**Aplicación común: Obtener prefijos y sufijos de códigos**
+```
+-- Supón que tienes un código de libro como 'LB-2025-001'
+
+-- y quieres extraer partes del código
+SELECT
+'LB-2025-001' AS codigo,
+LEFT('LB-2025-001', 2) AS prefijo,
+RIGHT('LB-2025-001', 3) AS consecutivo;
+```
+
+**Función UPPER(cadena)**
+
+Convierte **todo el texto a mayúsculas**.
+
+**Ejemplo:**
+```
+SELECT
+nombre_autor,
+UPPER(nombre_autor) AS nombre_mayusculas
+FROM Autores;
+```
+'Gabriel García Márquez' → 'GABRIEL GARCÍA MÁRQUEZ'
+
+**Función LOWER(cadena)**
+
+Convierte **todo el texto a minúsculas**.
+
+**Ejemplo:**
+
+```
+SELECT
+nombre_autor,
+LOWER(nombre_autor) AS nombre_minusculas
+FROM Autores;
+```
+
+'Isabel Allende' → 'isabel allende'
+
+**🎯 Uso común: Comparaciones insensibles a mayúsculas**
+
+-- Buscar autor sin importar si se escribe en mayúsculas o minúsculas
+```
+SELECT *
+FROM Autores
+WHERE LOWER(nombre_autor) = 'gabriel garcía márquez';
+```
+
+**¿Qué hace REPLACE?**
+
+REPLACE(cadena, texto_a_reemplazar, texto_nuevo)  
+Reemplaza todas las apariciones de un texto dentro de una cadena por otro texto.
+
+**Ejemplo básico**
+```
+SELECT
+'Gabriel García Márquez' AS original,
+REPLACE('Gabriel García Márquez', 'á', 'a') AS sin_tilde;
+```
+
+**Aplicación a una columna de una tabla**
+```
+SELECT
+titulo,
+REPLACE(titulo, 'á', 'a') AS titulo_sin_tildes
+FROM Libros;
+Esto reemplaza todas las **á** por **a** en los títulos de los libros.
+```
