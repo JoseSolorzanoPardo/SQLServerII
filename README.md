@@ -609,7 +609,7 @@ FROM Autores;
 
 'Isabel Allende' → 'isabel allende'
 
-**🎯 Uso común: Comparaciones insensibles a mayúsculas**
+** Uso común: Comparaciones insensibles a mayúsculas**
 
 -- Buscar autor sin importar si se escribe en mayúsculas o minúsculas
 ```
